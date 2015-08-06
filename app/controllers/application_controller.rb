@@ -5,9 +5,13 @@ require './config/environment.rb'
 
 class ApplicationController < Sinatra::Base
 
+
   configure do
     set :public_folder, 'public'
     set :views, 'app/views'
+
+    enable :sessions
+    set :session_secret, 'meowspace'
   end
 
   get '/' do
@@ -19,8 +23,28 @@ class ApplicationController < Sinatra::Base
     @cat.name = params[:name]
     @cat.save
 
+    if @cat
+      session[:user_id] = @cat
+    end
+
     erb :index
   end
+
+  post '/login' do
+    @cat = Cat.find(params[:id].to_i)
+
+    if @cat
+      session[:user_id] = @cat
+    end
+
+    erb :index
+  end
+
+  post '/logout' do 
+    session[:user_id] = nil
+
+    erb :index
+  end 
 
 
   post '/meow' do

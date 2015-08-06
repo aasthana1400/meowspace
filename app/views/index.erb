@@ -1,14 +1,28 @@
+
+<% if session[:user_id] %>
+<form method="POST" action="/logout">
+  <input type="submit" value="Logout">
+</form>
+
+ Hello <%= session[:user_id].name %>
+
+
+<form method="POST" action="/meow">
+  <input type="text" name="message" placeholder="Meow Here">
+  <input type="hidden" name="cat" value="<%= session[:user_id].id %> ">
+  <input type="submit">
+ </form>
+
+<% end %>
+
+
+
 <h1> Yo catz </h1>
 
 
-<% if @cat %>
- <h2> Hello <%= @cat.name %> </h2>
- <form method="POST" action="/meow">
-  <input type="text" name="message" placeholder="Meow Here">
-  <input type="hidden" name="cat" value="<%= @cat.id %> ">
-  <input type="submit">
- </form>
-<% end %>
+
+
+
 
 
 
