@@ -1,1 +1,37 @@
-<h1> Test </h1>
+
+<% if session[:user_id] %>
+<form method="POST" action="/logout">
+  <input type="submit" value="Logout">
+</form>
+
+ Hello <%= session[:user_id].name %>
+
+
+<form method="POST" action="/meow">
+  <input type="text" name="message" placeholder="Meow Here">
+  <input type="hidden" name="cat" value="<%= session[:user_id].id %> ">
+  <input type="submit">
+ </form>
+
+<% end %>
+
+
+
+<h1> Yo catz </h1>
+
+
+
+
+
+
+
+
+<% Meow.all.each do |meow| %>
+  <h3> 
+    <%= meow.message %> 
+    <%= meow.cat.name.upcase.reverse %> 
+  </h3>
+<%end %>
+
+
+
